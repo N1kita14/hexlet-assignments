@@ -24,4 +24,6 @@ class Segment {
         return new Point(x,y);
     }
 }
+
+//sfdsdfsdf
 // END
