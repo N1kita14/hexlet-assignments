@@ -1,9 +1,7 @@
 package exercise;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,7 +24,7 @@ import lombok.Setter;
 public class Application {
     // Хранилище добавленных постов
     @Setter
-    private static  List<Post> posts = Data.getPosts();
+    private static List<Post> posts = Data.getPosts();
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -34,8 +32,8 @@ public class Application {
 
     // BEGIN
     @GetMapping("/posts")
-    public ResponseEntity <List<Post>> getPosts(@RequestParam(defaultValue = "1") Integer pages,
-                               @RequestParam(defaultValue = "10") Integer limit) {
+    public ResponseEntity<List<Post>> getPosts(@RequestParam(defaultValue = "1") Integer pages,
+                                               @RequestParam(defaultValue = "10") Integer limit) {
 
         int i = pages * limit;
         List<Post> post = new ArrayList<Post>();
@@ -44,20 +42,23 @@ public class Application {
         }
         return ResponseEntity.ok().header("X-Total-Count", String.valueOf(i)).body(post);
     }
+
     @GetMapping("/posts/{id}")
     public ResponseEntity<?> show(@PathVariable String id) {
         var post = posts.stream()
                 .filter(p -> p.equals(id)).findFirst().orElse(null);
-        if(post == null){
+        if (post == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(post);
     }
+
     @PostMapping("/posts")
     public ResponseEntity<Post> create(@RequestBody Post post) {
         posts.add(post);
         return ResponseEntity.status(HttpStatus.CREATED).body(post);
     }
+
     @PutMapping("/posts/{id}")
     public ResponseEntity<Post> update(@PathVariable String id, @RequestBody Post data) {
         var maybePost = posts.stream().filter(p -> p.equals(id)).findFirst();
@@ -66,11 +67,12 @@ public class Application {
             post.setId(data.getId());
             post.setBody(data.getBody());
             post.setTitle(data.getTitle());
-        }else{
-         return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(data);
     }
+
     @DeleteMapping("/posts/{id}")
     public void destroy(@PathVariable String id) {
         posts.removeIf(p -> p.getId().equals(id));
