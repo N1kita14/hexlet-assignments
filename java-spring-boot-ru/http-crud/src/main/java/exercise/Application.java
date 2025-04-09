@@ -29,7 +29,8 @@ public class Application {
 
     // BEGIN
     @GetMapping("/posts")
-    public List<Post> getPosts(@RequestParam(defaultValue = "1") Integer pages, @RequestParam(defaultValue = "10") Integer limit) {
+    public List<Post> getPosts(@RequestParam(defaultValue = "1") Integer pages,
+                               @RequestParam(defaultValue = "10") Integer limit) {
 
         int i = pages * limit;
         List<Post> post = new ArrayList<Post>();
