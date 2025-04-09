@@ -29,29 +29,33 @@ public class Application {
 
     // BEGIN
     @GetMapping("/posts")
-    public List<Post> getPosts (@RequestParam(defaultValue = "1")Integer pages, @RequestParam(defaultValue = "10")Integer limit){
+    public List<Post> getPosts(@RequestParam(defaultValue = "1") Integer pages, @RequestParam(defaultValue = "10") Integer limit) {
+
         int i = pages * limit;
         List<Post> post = new ArrayList<Post>();
-        for(int j = 0; j < i; j++){
+        for (int j = 0; j < i; j++) {
             post.add(posts.get(j));
         }
         return post;
     }
+
     @GetMapping("/pages/{id}") // Вывод страницы
     public Optional<Post> show(@PathVariable String id) {
         var post = posts.stream()
                 .filter(p -> p.equals(id)).findFirst();
         return post;
     }
+
     @PostMapping("/posts")
-    public Post create(@RequestBody Post post){
+    public Post create(@RequestBody Post post) {
         posts.add(post);
         return post;
     }
+
     @PutMapping("/posts/{id}")
-    public Post update(@PathVariable String id, @RequestBody Post data){
+    public Post update(@PathVariable String id, @RequestBody Post data) {
         var maybePost = posts.stream().filter(p -> p.equals(id)).findFirst();
-        if(maybePost.isPresent()){
+        if (maybePost.isPresent()) {
             var post = maybePost.get();
             post.setId(data.getId());
             post.setBody(data.getBody());
@@ -59,8 +63,9 @@ public class Application {
         }
         return data;
     }
+
     @DeleteMapping("/posts/{id}")
-    public void destroy(@PathVariable String id){
+    public void destroy(@PathVariable String id) {
         posts.removeIf(p -> p.getTitle().equals(id));
     }
     // END
