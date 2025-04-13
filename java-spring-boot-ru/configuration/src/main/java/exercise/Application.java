@@ -9,10 +9,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import  org.springframework.beans.factory.annotation.Autowired;
+//import  org.springframework.beans.factory.annotation.Autowired;
 
 import exercise.model.User;
-import exercise.component.UserProperties;
+//import exercise.component.UserProperties;
 
 @SpringBootApplication
 @RestController
@@ -23,9 +23,10 @@ public class Application {
 
     @Value("${users.admins}")
     private List<String> admins;
+
     // BEGIN
     @GetMapping("/admins")
-    public List<String> showAdmins(){
+    public List<String> showAdmins() {
         return admins;
     }
     // END
@@ -38,8 +39,8 @@ public class Application {
     @GetMapping("/users/{id}")
     public Optional<User> show(@PathVariable Long id) {
         var user = users.stream()
-            .filter(u -> u.getId() == id)
-            .findFirst();
+                .filter(u -> u.getId() == id)
+                .findFirst();
         return user;
     }
 
