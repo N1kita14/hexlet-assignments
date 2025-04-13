@@ -29,6 +29,9 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
     testImplementation("org.hamcrest:hamcrest:2.2")
 }
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}
 
 tasks.test {
     useJUnitPlatform()
