@@ -38,6 +38,9 @@ public class Application {
         int i = pages * limit;
         List<Post> post = new ArrayList<Post>();
         for (int j = 0; j < i; j++) {
+            if(j >= posts.size()){
+                break;
+            }
             post.add(posts.get(j));
         }
         return ResponseEntity.ok().header("X-Total-Count", String.valueOf(i)).body(post);
