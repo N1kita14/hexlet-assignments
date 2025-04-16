@@ -46,7 +46,7 @@ public class Application {
     @GetMapping("/posts/{id}")
     public ResponseEntity<?> show(@PathVariable String id) {
         var post = posts.stream()
-                .filter(p -> p.equals(id)).findFirst().orElse(null);
+                .filter(p -> p.getId().equals(id)).findFirst().orElse(null);
         if (post == null) {
             return ResponseEntity.notFound().build();
         }
