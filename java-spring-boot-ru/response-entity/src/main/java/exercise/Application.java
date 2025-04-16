@@ -43,7 +43,7 @@ public class Application {
             }
             post.add(posts.get(j));
         }
-        return ResponseEntity.ok().header("X-Total-Count", String.valueOf(i)).body(post);
+        return ResponseEntity.ok().header("X-Total-Count", String.valueOf(posts.size())).body(post);
     }
 
     @GetMapping("/posts/{id}")
