@@ -40,7 +40,7 @@ public class Application {
         return post;
     }
 
-    @GetMapping("/pages/{id}") // Вывод страницы
+    @GetMapping("/posts/{id}") // Вывод страницы
     public Optional<Post> show(@PathVariable String id) {
         var post = posts.stream()
                 .filter(p -> p.equals(id)).findFirst();
