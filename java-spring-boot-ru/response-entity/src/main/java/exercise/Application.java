@@ -61,7 +61,7 @@ public class Application {
 
     @PutMapping("/posts/{id}")
     public ResponseEntity<Post> update(@PathVariable String id, @RequestBody Post data) {
-        var maybePost = posts.stream().filter(p -> p.equals(id)).findFirst();
+        var maybePost = posts.stream().filter(p -> p.getId().equals(id)).findFirst();
         if (maybePost.isPresent()) {
             var post = maybePost.get();
             post.setId(data.getId());
