@@ -35,6 +35,9 @@ public class Application {
         int i = pages * limit;
         List<Post> post = new ArrayList<Post>();
         for (int j = 0; j < i; j++) {
+            if(j >= posts.size()){
+                break;
+            }
             post.add(posts.get(j));
         }
         return post;
@@ -43,7 +46,7 @@ public class Application {
     @GetMapping("/posts/{id}") // Вывод страницы
     public Optional<Post> show(@PathVariable String id) {
         var post = posts.stream()
-                .filter(p -> p.equals(id)).findFirst();
+                .filter(p -> p.getId().equals(id)).findFirst();
         return post;
     }
 
@@ -55,7 +58,7 @@ public class Application {
 
     @PutMapping("/posts/{id}")
     public Post update(@PathVariable String id, @RequestBody Post data) {
-        var maybePost = posts.stream().filter(p -> p.equals(id)).findFirst();
+        var maybePost = posts.stream().filter(p -> p.getId().equals(id)).findFirst();
         if (maybePost.isPresent()) {
             var post = maybePost.get();
             post.setId(data.getId());
