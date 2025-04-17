@@ -28,6 +28,7 @@ public class PostsController {
 
     @PostMapping("/{id}/posts")
     public ResponseEntity<Post> create(@PathVariable int id, @RequestBody Post post) {
+        post.setUserId(id);
         posts.add(post);
         return ResponseEntity.status(HttpStatus.CREATED).body(post);
     }
