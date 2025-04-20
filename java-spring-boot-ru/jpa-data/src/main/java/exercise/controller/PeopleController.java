@@ -35,12 +35,13 @@ public class PeopleController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Person person){
+    public ResponseEntity<?> create(@RequestBody Person person) {
         personRepository.save(person);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable long id){
+    public ResponseEntity<?> delete(@PathVariable long id) {
         personRepository.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

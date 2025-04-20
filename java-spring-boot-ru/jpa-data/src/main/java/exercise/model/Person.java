@@ -3,8 +3,9 @@ package exercise.model;
 import jakarta.persistence.*;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
-import lombok.Getter;
-import lombok.Setter;
+
+//import lombok.Getter;
+//import lombok.Setter;
 
 @Entity
 
