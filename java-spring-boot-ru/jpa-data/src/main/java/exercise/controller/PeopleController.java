@@ -37,7 +37,7 @@ public class PeopleController {
     @PostMapping
     public ResponseEntity<?> create(@RequestBody Person person) {
         personRepository.save(person);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(person);
     }
 
     @DeleteMapping("/{id}")
