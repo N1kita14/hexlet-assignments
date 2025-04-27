@@ -42,7 +42,8 @@ public class TasksController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Task create(@RequestBody Task task) {
-        return taskRepository.save(task);
+        taskRepository.save(task);
+        return task;
     }
 
     @PutMapping(path = "/{id}")
@@ -50,7 +51,8 @@ public class TasksController {
         var newTask = taskRepository.findById(id).get();
         newTask.setTitle(task.getTitle());
         newTask.setDescription(task.getDescription());
-        return taskRepository.save(newTask);
+        taskRepository.save(newTask);
+        return newTask;
     }
 
     @DeleteMapping(path = "/{id}")
