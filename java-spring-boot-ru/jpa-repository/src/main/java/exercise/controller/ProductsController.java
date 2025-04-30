@@ -22,7 +22,7 @@ public class ProductsController {
     private ProductRepository productRepository;
 
     @GetMapping
-    public List<Product> getLowProducts(@RequestParam int min, @RequestParam int max) {
+    public List<Product> getLowProducts(@RequestParam (defaultValue = "0") int min, @RequestParam (defaultValue = "1000") int max) {
         return productRepository.findByPriceBetween(min, max);
     }
 
