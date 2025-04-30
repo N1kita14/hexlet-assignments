@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import exercise.model.Product;
 
-import org.springframework.data.domain.Sort;
+//import org.springframework.data.domain.Sort;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
