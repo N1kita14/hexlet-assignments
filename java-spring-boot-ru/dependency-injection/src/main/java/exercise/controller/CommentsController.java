@@ -43,7 +43,7 @@ public class CommentsController {
         return commentRepository.save(comment);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public Comment update(@PathVariable long id, @RequestBody Comment comment) {
         var comment11 = commentRepository.findById(id).get();
         comment11.setPostId(comment.getPostId());

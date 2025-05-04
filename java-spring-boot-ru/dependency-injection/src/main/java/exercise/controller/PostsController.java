@@ -43,7 +43,7 @@ public class PostsController {
         return postRepository.save(post);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public Post update(@PathVariable long id, @RequestBody Post post) {
         var post11 = postRepository.findById(id).get();
         post11.setTitle(post.getTitle());
