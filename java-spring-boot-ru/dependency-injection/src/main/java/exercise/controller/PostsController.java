@@ -1,7 +1,7 @@
 package exercise.controller;
 
 import exercise.exception.ResourceNotFoundException;
-import exercise.model.Comment;
+//import exercise.model.Comment;
 import exercise.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,7 @@ import java.util.List;
 
 import exercise.model.Post;
 import exercise.repository.PostRepository;
-import exercise.exception.ResourceNotFoundException;
+//import exercise.exception.ResourceNotFoundException;
 
 @RestController
 @RequestMapping("/posts")
