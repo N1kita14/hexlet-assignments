@@ -36,7 +36,7 @@ public class CommentsController {
     public Comment show(@PathVariable long id) {
 
         var comment = commentRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Post with id " + id + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Comment with id " + id + " not found"));
 
         return comment;
     }
