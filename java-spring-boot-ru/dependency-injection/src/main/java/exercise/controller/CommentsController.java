@@ -19,7 +19,7 @@ import java.util.List;
 
 import exercise.model.Comment;
 import exercise.repository.CommentRepository;
-//import exercise.exception.ResourceNotFoundException;
+import exercise.exception.ResourceNotFoundException;
 
 @RestController
 @RequestMapping("/comments")
@@ -32,9 +32,13 @@ public class CommentsController {
         return commentRepository.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{id}")
     public Comment show(@PathVariable long id) {
-        return commentRepository.findById(id).get();
+
+        var comment = commentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
+
+        return comment;
     }
 
     @PostMapping

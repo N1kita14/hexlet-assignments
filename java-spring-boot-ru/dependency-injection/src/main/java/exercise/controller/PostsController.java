@@ -1,5 +1,7 @@
 package exercise.controller;
 
+import exercise.exception.ResourceNotFoundException;
+import exercise.model.Comment;
 import exercise.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +19,7 @@ import java.util.List;
 
 import exercise.model.Post;
 import exercise.repository.PostRepository;
-//import exercise.exception.ResourceNotFoundException;
+import exercise.exception.ResourceNotFoundException;
 
 @RestController
 @RequestMapping("/posts")
@@ -32,9 +34,13 @@ public class PostsController {
         return postRepository.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{id}")
     public Post show(@PathVariable long id) {
-        return postRepository.findById(id).get();
+
+        var post = postRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
+
+        return post;
     }
 
     @PostMapping
