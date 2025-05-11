@@ -1,4 +1,5 @@
 package exercise.daytime;
+
 import jakarta.annotation.PostConstruct;
 
 public class Night implements Daytime {
@@ -9,7 +10,7 @@ public class Night implements Daytime {
     }
 
     @PostConstruct
-    public void night(){
+    public void night() {
         System.out.println("Bean is created!");
     }
 }
