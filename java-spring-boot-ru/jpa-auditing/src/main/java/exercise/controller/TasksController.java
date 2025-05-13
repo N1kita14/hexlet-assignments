@@ -39,21 +39,30 @@ public class TasksController {
         return task;
     }
 
+    // BEGIN
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Task create(@RequestBody Task task) {
+    public Task create(@RequestBody Task data) {
+        if (taskRepository.findAll().contains(data)) {
+            throw new ResourceNotFoundException("ALREADY EXISTS");
+        }
+        var task = new Task();
+        task.setTitle(data.getTitle());
+        task.setDescription(data.getDescription());
         taskRepository.save(task);
         return task;
     }
 
     @PutMapping(path = "/{id}")
-    public Task update(@PathVariable long id, @RequestBody Task task) {
-        var newTask = taskRepository.findById(id).get();
-        newTask.setTitle(task.getTitle());
-        newTask.setDescription(task.getDescription());
-        taskRepository.save(newTask);
-        return newTask;
+    @ResponseStatus(HttpStatus.OK)
+    public Task update(@PathVariable Long id, @RequestBody Task data) {
+        var maybe = taskRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
+        maybe.setDescription(data.getDescription());
+        maybe.setTitle(data.getTitle());
+        return data;
     }
+    // END
 
     @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable long id) {
