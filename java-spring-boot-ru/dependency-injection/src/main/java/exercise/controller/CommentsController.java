@@ -1,8 +1,5 @@
 package exercise.controller;
 
-//import exercise.model.Post;
-//import exercise.repository.PostRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,43 +18,46 @@ import exercise.model.Comment;
 import exercise.repository.CommentRepository;
 import exercise.exception.ResourceNotFoundException;
 
+// BEGIN
 @RestController
 @RequestMapping("/comments")
 public class CommentsController {
     @Autowired
     private CommentRepository commentRepository;
 
-    @GetMapping
-    public List<Comment> getListComments() {
+    @GetMapping(path = "")
+    public List<Comment> index() {
         return commentRepository.findAll();
     }
 
     @GetMapping(path = "/{id}")
-    public Comment show(@PathVariable long id) {
-
-        var comment = commentRepository.findById(id)
+    public Comment show(@PathVariable("id") long id) {
+        var comm = commentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Comment with id " + id + " not found"));
-
-        return comment;
+        return comm;
     }
 
-    @PostMapping
+    @PostMapping(path = "")
     @ResponseStatus(HttpStatus.CREATED)
     public Comment create(@RequestBody Comment comment) {
-        return commentRepository.save(comment);
+        var comm = comment;
+        commentRepository.save(comm);
+        return comm;
     }
 
-    @PutMapping("/{id}")
-    public Comment update(@PathVariable long id, @RequestBody Comment comment) {
-        var comment11 = commentRepository.findById(id).get();
-        comment11.setPostId(comment.getPostId());
-        comment11.setBody(comment.getBody());
-        commentRepository.save(comment11);
-        return comment;
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id) {
+    @DeleteMapping(path = "/{id}")
+    public void delete(@PathVariable("id") long id) {
         commentRepository.deleteById(id);
     }
+
+    @PutMapping(path = "/{id}")
+    public Comment update(@PathVariable("id") long id, @RequestBody Comment comment) {
+        var comm = commentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found"));
+        comm.setBody(comment.getBody());
+        commentRepository.save(comm);
+        return comm;
+    }
+
 }
+// END

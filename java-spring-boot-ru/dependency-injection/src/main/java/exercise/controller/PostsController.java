@@ -1,7 +1,5 @@
 package exercise.controller;
 
-import exercise.exception.ResourceNotFoundException;
-//import exercise.model.Comment;
 import exercise.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,48 +17,52 @@ import java.util.List;
 
 import exercise.model.Post;
 import exercise.repository.PostRepository;
-//import exercise.exception.ResourceNotFoundException;
+import exercise.exception.ResourceNotFoundException;
 
+// BEGIN
 @RestController
 @RequestMapping("/posts")
 public class PostsController {
-    @Autowired
-    private PostRepository postRepository;
+
     @Autowired
     private CommentRepository commentRepository;
+    @Autowired
+    private PostRepository postRepository;
 
-    @GetMapping
-    public List<Post> getListPosts() {
+    @GetMapping(path = "")
+    public List<Post> index() {
         return postRepository.findAll();
     }
 
     @GetMapping(path = "/{id}")
-    public Post show(@PathVariable long id) {
-
+    public Post show(@PathVariable("id") long id) {
         var post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Post with id " + id + " not found"));
-
         return post;
     }
 
-    @PostMapping
+    @PostMapping(path = "")
     @ResponseStatus(HttpStatus.CREATED)
     public Post create(@RequestBody Post post) {
-        return postRepository.save(post);
-    }
-
-    @PutMapping("/{id}")
-    public Post update(@PathVariable long id, @RequestBody Post post) {
-        var post11 = postRepository.findById(id).get();
-        post11.setTitle(post.getTitle());
-        post11.setBody(post.getBody());
-        postRepository.save(post11);
+        var post1 = post;
+        postRepository.save(post1);
         return post;
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id) {
+    @DeleteMapping(path = "/{id}")
+    public void delete(@PathVariable("id") long id) {
         commentRepository.deleteByPostId(id);
         postRepository.deleteById(id);
     }
+
+    @PutMapping(path = "/{id}")
+    public Post update(@PathVariable("id") long id, @RequestBody Post newPost) {
+        var post = postRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found"));
+        post.setTitle(newPost.getTitle());
+        post.setBody(newPost.getBody());
+        postRepository.save(post);
+        return post;
+    }
 }
+// END
