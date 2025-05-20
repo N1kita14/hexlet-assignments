@@ -48,6 +48,7 @@ public class PostsController {
         dto.setId(post.getId());
         dto.setBody(post.getBody());
         dto.setTitle(post.getTitle());
+
         return dto;
     }
 }
