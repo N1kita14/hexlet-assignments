@@ -32,9 +32,15 @@ public class PostsController {
     }
 
     @GetMapping("/{id}")
-    public Post show(@PathVariable Long id) {
-        return postRepository.findById(id)
+    public PostDTO show(@PathVariable Long id) {
+        var post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not Found"));
+
+        var dto = new PostDTO();
+        dto.setId(post.getId());
+        dto.setBody(post.getBody());
+        dto.setTitle(post.getTitle());
+        return dto;
     }
 
     private PostDTO toDTO(Post post) {
