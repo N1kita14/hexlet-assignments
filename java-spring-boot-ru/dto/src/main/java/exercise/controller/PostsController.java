@@ -1,6 +1,7 @@
 package exercise.controller;
 
 //import exercise.repository.CommentRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +13,7 @@ import java.util.List;
 import exercise.model.Post;
 import exercise.repository.PostRepository;
 import exercise.exception.ResourceNotFoundException;
-//import exercise.dto.PostDTO;
+import exercise.dto.PostDTO;
 //import exercise.dto.CommentDTO;
 
 @RestController
@@ -22,13 +23,25 @@ public class PostsController {
     private PostRepository postRepository;
 
     @GetMapping
-    public List<Post> index() {
-        return postRepository.findAll();
+    public List<PostDTO> index() {
+        var posts = postRepository.findAll();
+        var result = posts.stream()
+                .map(this::toDTO)
+                .toList();
+        return result;
     }
 
     @GetMapping("/{id}")
     public Post show(@PathVariable Long id) {
         return postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not Found"));
+    }
+
+    private PostDTO toDTO(Post post) {
+        var dto = new PostDTO();
+        dto.setId(post.getId());
+        dto.setBody(post.getBody());
+        dto.setTitle(post.getTitle());
+        return dto;
     }
 }
