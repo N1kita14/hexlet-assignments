@@ -1,13 +1,12 @@
 package exercise.controller;
 
-import lombok.Setter;
+//import lombok.Setter;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
+//import org.springframework.http.HttpStatus;
+//import org.springframework.web.bind.annotation.ResponseStatus;
 
 import exercise.model.Contact;
 import exercise.repository.ContactRepository;
@@ -22,6 +21,7 @@ public class ContactsController {
     private ContactRepository contactRepository;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ContactDTO create(@RequestBody ContactCreateDTO contactCreateDTO) {
         var contact = new Contact();
         contact.setFirstName(contactCreateDTO.getFirstName());
