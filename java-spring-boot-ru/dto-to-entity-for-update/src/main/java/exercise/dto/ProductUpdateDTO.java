@@ -9,7 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
+//import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Setter
 @Getter
