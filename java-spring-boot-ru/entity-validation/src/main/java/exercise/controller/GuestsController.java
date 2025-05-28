@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
 import java.util.List;
 
 import exercise.repository.GuestRepository;
 import exercise.dto.GuestDTO;
-import exercise.dto.GuestCreateDTO;
+//import exercise.dto.GuestCreateDTO;
 import exercise.exception.ResourceNotFoundException;
 
 @RestController
@@ -40,8 +41,8 @@ public class GuestsController {
     @GetMapping(path = "/{id}")
     public GuestDTO show(@PathVariable long id) {
 
-        var guest =  guestRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Guest with id " + id + " not found"));
+        var guest = guestRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Guest with id " + id + " not found"));
         var guestDto = guestMapper.map(guest);
         return guestDto;
     }
