@@ -41,7 +41,7 @@ public class Guest {
     @Email
     private String email;
 
-    @Pattern(regexp = "\\d {4}")
+    @Pattern(regexp = "^\\d{4}$")
     private String clubCard;
 
     @Pattern(regexp = "^\\+\\d{11,13}$")
