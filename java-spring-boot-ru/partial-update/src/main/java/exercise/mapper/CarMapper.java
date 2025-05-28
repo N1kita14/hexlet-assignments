@@ -19,6 +19,7 @@ import exercise.model.Car;
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 public abstract class CarMapper {
+
     public abstract void update(CarUpdateDTO dto, @MappingTarget Car model);
 }
 // END
