@@ -1,5 +1,6 @@
 package exercise.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 //import jakarta.persistence.FetchType;
@@ -14,6 +15,7 @@ import jakarta.validation.constraints.NotBlank;
 //import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OptimisticLock;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -43,7 +45,8 @@ public class Task {
     private LocalDate updatedAt;
 
     // BEGIN
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(optional = false)
     private User assignee;
     // END
 }

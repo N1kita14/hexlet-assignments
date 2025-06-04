@@ -1,5 +1,6 @@
 package exercise.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
@@ -47,6 +48,7 @@ public class User {
 
     // BEGIN
     @OneToMany(mappedBy = "assignee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Task> tasks = new ArrayList<>();
     // END
 }
