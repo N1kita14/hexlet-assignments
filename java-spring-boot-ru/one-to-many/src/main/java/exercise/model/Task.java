@@ -44,6 +44,6 @@ public class Task {
 
     // BEGIN
     @ManyToOne
-    private User user;
+    private User assignee;
     // END
 }
