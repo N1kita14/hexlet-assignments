@@ -6,7 +6,7 @@ import exercise.dto.TaskCreateDTO;
 import exercise.dto.TaskDTO;
 import exercise.dto.TaskUpdateDTO;
 import exercise.mapper.TaskMapper;
-import exercise.repository.UserRepository;
+//import exercise.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import exercise.exception.ResourceNotFoundException;
+//import exercise.exception.ResourceNotFoundException;
 import exercise.repository.TaskRepository;
-import jakarta.validation.Valid;
+//import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/tasks")
@@ -31,17 +31,20 @@ public class TasksController {
     private TaskRepository taskRepository;
     @Autowired
     private TaskMapper taskMapper;
+
     @GetMapping
     public List<TaskDTO> index() {
         var tasks = taskRepository.findAll();
         return tasks.stream().map(t -> taskMapper.map(t)).toList();
     }
+
     @GetMapping("{/id}")
     public TaskDTO show(@PathVariable long id) {
         var task = taskRepository.findById(id).get();
         var taskDTO = taskMapper.map(task);
         return taskDTO;
     }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TaskDTO create(@RequestBody TaskCreateDTO taskCreateDTO) {
@@ -49,6 +52,7 @@ public class TasksController {
         taskRepository.save(task);
         return taskMapper.map(task);
     }
+
     @PutMapping("{/id}")
     public TaskDTO update(@PathVariable long id, @RequestBody TaskUpdateDTO taskUpdateDTO) {
         var task = taskRepository.findById(id).get();
@@ -56,6 +60,7 @@ public class TasksController {
         taskRepository.save(task);
         return taskMapper.map(task);
     }
+
     @DeleteMapping("{/id}")
     public void delete(@PathVariable long id) {
         taskRepository.deleteById(id);
