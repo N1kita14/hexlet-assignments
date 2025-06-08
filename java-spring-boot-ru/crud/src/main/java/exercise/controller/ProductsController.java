@@ -68,7 +68,7 @@ public class ProductsController {
         var postDTO = productMapper.map(post);
         return postDTO;
     }
-    @DeleteMapping("/posts/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
         productRepository.deleteById(id);
