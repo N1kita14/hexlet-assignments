@@ -1,6 +1,10 @@
 package exercise.mapper;
 
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ReportingPolicy;
+import org.mapstruct.TargetType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import exercise.model.BaseEntity;
@@ -8,7 +12,7 @@ import jakarta.persistence.EntityManager;
 
 // BEGIN
 @Mapper(
-        uses = { JsonNullableMapper.class, ReferenceMapper.class },
+        uses = {JsonNullableMapper.class, ReferenceMapper.class},
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
