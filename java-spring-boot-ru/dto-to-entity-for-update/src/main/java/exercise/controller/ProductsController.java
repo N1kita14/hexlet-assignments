@@ -1,7 +1,7 @@
 package exercise.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.validation.annotation.Validated;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,7 +39,7 @@ public class ProductsController {
     @GetMapping(path = "/{id}")
     public ProductDTO show(@PathVariable long id) {
 
-        var product = productRepository.findById(id)
+        var product =  productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
         var productDTO = toDTO(product);
         return productDTO;
@@ -54,18 +54,24 @@ public class ProductsController {
         return productDto;
     }
 
-    @PutMapping("{/id}")
+    // BEGIN
+    @PutMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ProductDTO update(@RequestBody ProductUpdateDTO productUpdateDTO) {
-        var product = productRepository.findById(productUpdateDTO.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Not found"));
-        //product.setId(productUpdateDTO.getId());
-        product.setTitle(productUpdateDTO.getTitle());
-        product.setPrice(productUpdateDTO.getPrice());
+    public ProductDTO update(@RequestBody @Validated ProductUpdateDTO productData, @PathVariable Long id) {
+        var product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not Found"));
+        toEntity(productData, product);
         productRepository.save(product);
-        return toDTO(product);
+        var productDTO = toDTO(product);
+        return productDTO;
     }
 
+    private Product toEntity(ProductUpdateDTO productDto, Product product) {
+        product.setTitle(productDto.getTitle());
+        product.setPrice(productDto.getPrice());
+        return product;
+    }
+    // END
 
     private Product toEntity(ProductCreateDTO productDto) {
         var product = new Product();
@@ -86,4 +92,3 @@ public class ProductsController {
         return dto;
     }
 }
-
