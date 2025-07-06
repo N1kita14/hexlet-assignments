@@ -8,6 +8,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
+
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 import jakarta.validation.constraints.Email;
@@ -87,8 +88,4 @@ public class User implements BaseEntity, UserDetails {
     public boolean isEnabled() {
         return false;
     }
-
-    // BEGIN
-    
-    // END
 }
