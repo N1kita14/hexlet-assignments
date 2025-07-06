@@ -42,7 +42,7 @@ public class ArticleController {
 
     // BEGIN
     @PostMapping
-    ArticleDTO create (@RequestBody ArticleCreateDTO articleCreateDTO) {
+    ArticleDTO create(@RequestBody ArticleCreateDTO articleCreateDTO) {
         var article = articleMapper.map(articleCreateDTO);
         articleRepository.save(article);
         return articleMapper.map(article);
