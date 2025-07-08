@@ -12,7 +12,7 @@ public class UserUtils {
     private UserRepository userRepository;
 
     // BEGIN
-    public User getCurrentUser() {
+    public User getUser() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
             return null;
